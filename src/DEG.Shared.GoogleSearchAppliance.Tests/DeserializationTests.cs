@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using FluentAssertions;
-using Moq;
 using NUnit.Framework;
 
 namespace DEG.Shared.GoogleSearchAppliance.Tests
@@ -8,19 +7,13 @@ namespace DEG.Shared.GoogleSearchAppliance.Tests
     [TestFixture]
     public class DeserializationTests
     {
-        private readonly IGoogleSearchAppliance _search;
-
-        public DeserializationTests()
-        {
-            _search = new GoogleMini();
-        }
-
         [Test]
         public void CanGetResults()
         {
             var config = new GsaConfiguration("file://" + new FileInfo("./Data/output.xml").FullName, "", "");
+            var googleMini = new GoogleMini(config);
 
-            var results = _search.Search(config, "test");
+            var results = googleMini.Search("test");
 
             results.Should().NotBeNull();
             results.Results.Items.Should().NotBeEmpty();
@@ -30,8 +23,9 @@ namespace DEG.Shared.GoogleSearchAppliance.Tests
         public void CanGetResultsWithSuggestions()
         {
             var config = new GsaConfiguration("file://" + new FileInfo("./Data/output2.xml").FullName, "", "");
+            var googleMini = new GoogleMini(config);
 
-            var results = _search.Search(config, "test");
+            var results = googleMini.Search("test");
 
             results.Suggestions.Should().NotBeEmpty();
         }

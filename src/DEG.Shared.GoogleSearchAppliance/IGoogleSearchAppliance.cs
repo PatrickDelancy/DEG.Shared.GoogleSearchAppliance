@@ -4,7 +4,7 @@ namespace DEG.Shared.GoogleSearchAppliance
 {
     public interface IGoogleSearchAppliance
     {
-        GoogleSearchResponse Search(GsaConfiguration config, string query);
-        GoogleSearchResponse Search(GsaConfiguration config, string query, long start, long pageSize);
+        GoogleSearchResponse Search(string query);
+        GoogleSearchResponse Search(string query, long start, long pageSize);
     }
 }

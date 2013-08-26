@@ -1,16 +1,23 @@
 ﻿namespace DEG.Shared.GoogleSearchAppliance
 {
-    public class GsaConfiguration
+    public interface IGsaConfiguration
     {
-        public readonly string Uri;
-        public readonly string Site;
-        public readonly string Client;
+        string Uri { get; }
+        string Site { get; }
+        string Client { get; }
+    }
 
-        public GsaConfiguration(string applianceUri, string siteOrCollectionName, string clientOrFrontendName)
+    public class GsaConfiguration : IGsaConfiguration
+    {
+        public string Uri { get; private set; }
+        public string Site { get; private set; }
+        public string Client { get; private set; }
+
+        public GsaConfiguration(string applianceUrl, string collectionOrSiteName, string clientOrLayoutName)
         {
-            Uri = applianceUri;
-            Site = siteOrCollectionName;
-            Client = clientOrFrontendName;
+            Uri = applianceUrl;
+            Site = collectionOrSiteName;
+            Client = clientOrLayoutName;
         }
     }
 }

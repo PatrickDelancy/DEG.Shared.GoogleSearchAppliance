@@ -6,18 +6,18 @@ namespace DEG.Shared.GoogleSearchAppliance
 {
     public interface IUrlBuilder
     {
-        string Build(GsaConfiguration config, string query);
-        string Build(GsaConfiguration config, string query, long start, long pageSize);
+        string Build(IGsaConfiguration config, string query);
+        string Build(IGsaConfiguration config, string query, long start, long pageSize);
     }
 
     public class UrlBuilder : IUrlBuilder
     {
-        public string Build(GsaConfiguration config, string query)
+        public string Build(IGsaConfiguration config, string query)
         {
             return Build(config, query, 0, 0);
         }
 
-        public string Build(GsaConfiguration config, string query, long start, long pageSize)
+        public string Build(IGsaConfiguration config, string query, long start, long pageSize)
         {
             var url = config.Uri +
                       "?site=" + HttpUtility.UrlEncode(config.Site) +

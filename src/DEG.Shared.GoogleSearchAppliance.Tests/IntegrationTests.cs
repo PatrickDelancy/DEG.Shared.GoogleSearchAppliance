@@ -18,17 +18,10 @@ namespace DEG.Shared.GoogleSearchAppliance.Tests
             var page = 0;
             var pageSize = 15;
 
-            var urlBuilder = new UrlBuilder();
-            var searcher = new GoogleMini();
             var config = new GsaConfiguration(applianceUrl, site, client);
-
-            var url = urlBuilder.Build(config, "test", 0, 15);
-            using (var webClient = new WebClient())
-            {
-                var xml = webClient.DownloadString(url);
-            }
-
-            var result = searcher.Search(config, "test", 0, pageSize);
+            var searcher = new GoogleMini(config);
+            
+            var result = searcher.Search("test", page, pageSize);
 
             result.Results.Should().NotBeNull();
             result.Results.Items.Should().NotBeEmpty();

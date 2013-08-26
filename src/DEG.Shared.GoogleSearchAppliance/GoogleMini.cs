@@ -6,17 +6,23 @@ namespace DEG.Shared.GoogleSearchAppliance
 {
     public class GoogleMini : IGoogleSearchAppliance
     {
+        private readonly IGsaConfiguration _config;
         private readonly IUrlBuilder _urlBuilder = new UrlBuilder();
 
-        public GoogleSearchResponse Search(GsaConfiguration config, string query)
+        public GoogleMini(IGsaConfiguration config)
         {
-            var url = _urlBuilder.Build(config, query);
+            _config = config;
+        }
+
+        public GoogleSearchResponse Search(string query)
+        {
+            var url = _urlBuilder.Build(_config, query);
             return GetResults(url);
         }
 
-        public GoogleSearchResponse Search(GsaConfiguration config, string query, long start, long pageSize)
+        public GoogleSearchResponse Search(string query, long start, long pageSize)
         {
-            var url = _urlBuilder.Build(config, query, start, pageSize);
+            var url = _urlBuilder.Build(_config, query, start, pageSize);
             return GetResults(url);
         }
 
